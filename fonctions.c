@@ -27,39 +27,39 @@ void affichage_tout_traget(FILE *f){ // afficher ville depart arrive, date/horai
     while (fgets(ligne, sizeof(ligne), f)) {
         ligne[strcspn(ligne, "\n")] = 0;
 
-//--------------------- ensuite je separe ligne avec separateur , -----------//
-        char* separateur;
+//--------------------- ensuite je separe ligne avec valeur , -----------//
+        char* valeur;
         int champ = 0;
 
-        separateur = strtok(ligne, ",");
+        valeur = strtok(ligne, ",");
 //--------------------------------------------------------------------------//
         //-- variable champ debute a 0 (idbus) /!\ --//
-        while (separateur != NULL) {
+        while (valeur != NULL) {
             switch (champ) {
                 case 1: 
-                    printf("  Ville depart : %s\n", separateur);
+                    printf("  Ville depart : %s\n", valeur);
                     break;
                 case 2: 
-                    printf("  Ville arrivee : %s\n", separateur);
+                    printf("  Ville arrivee : %s\n", valeur);
                     break;
                 case 3: 
-                    printf("  Date depart : %s\n", separateur);
+                    printf("  Date depart : %s\n", valeur);
                     break;
                 case 4:
-                    horaire = atoi(separateur); // aoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int)
+                    horaire = atoi(valeur); // atoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int)
                     h = horaire / 100;
                     m = horaire % 100;
                     printf("  Horaire depart : %02d:%02d\n", h, m);
                     break;
                 case 5:
-                    horaire = atoi(separateur); // aoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int pas vue en class)
+                    horaire = atoi(valeur); // atoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int pas vue en class)
                     h = horaire / 100;
                     m = horaire % 100;
                     printf("  Horaire arrivee : %02d:%02d\n", h, m);
                     break;
             }
             champ++;    //------------------------------------------ Prend valeur des differents champs selon le format qu'on a vue en cours ----------------//
-            separateur = strtok(NULL, ","); //-- null pour qu'il continue a separer la meme ligne --//
+            valeur = strtok(NULL, ","); //-- null pour qu'il continue a separer la meme ligne --//
         }
         printf("\n----------------------------------\n\n");
     }
