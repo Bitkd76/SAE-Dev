@@ -83,8 +83,8 @@ void affichage_trajet_selon_bus(FILE *f){
     while (fgets(ligne, sizeof(ligne), f)) {
         ligne[strcspn(ligne, "\n")] = 0;       // retirer le \n a la fin de la ligne
         strcpy(ligne_orig, ligne);              // copie la ligne originel(/!\) doit etre apres le while, pour qu'il puissent copier une ligne deja lue
-        char *num = strtok(ligne, ",");         // vue que j'ai besoin que du premier champs( champ 0 ) je le recupere avec strtok
-        if (num != NULL && numbus == atoi(num)) {
+        char *num = strtok(ligne, ",");         // vue que j'ai besoin que du premier champs( champ 0 ) je le recupere avec strtok qui vas recuperer la chaine de caractere jusqu'a tomber sur le ,
+        if (num != NULL && numbus == atoi(num)) { // atoi convertie la chaine de caractere en int pour pouvoir comparer
             printf("Trajet du bus numero %d : %s\n", numbus, ligne_orig);
         }
     }
