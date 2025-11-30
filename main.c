@@ -12,7 +12,7 @@
 int main(){
     int choix;
     int i=0;
-    printf("1 - tous les trajets pre    vus \n\n");
+    printf("1 - tous les trajets prevus \n\n");
     printf("2 - afficher toutes les informations sur le traget a partir du numeros d'un bus\n\n");
     printf("3 - affichage de tous les trajtes tries par ville de depart et date de depart \n\n");
     printf("4 - ajout et suppression de clients a partir du numero d'un bus\n\n");
@@ -21,7 +21,7 @@ int main(){
     printf("7 - Trajets partant d'une ville, partant a une date, arrivant le lendemain \n\n");
     printf("8 - Trajets combinant ville de depart, ville arrivee et date de depart \n\n");
     printf("9 - Trajets tries par CA \n\n"); //(difference entre les prix des billets payes par les passagers et le cout du trajet supporte par l’entreprise)//, 
-    // en dernier si on a fini //
+    // en dernier si on a finit 10- facultatif //
     printf("10 - Suppression des bus avec CA negatif, en repartissant les passagers sur les trajets identiques, en priorisant les passagers ayant paye le plus sur les dates et horaires les plus proches du trajet initial. Il faudra indiquer le gain genere par cette operation \n\n");
     printf("\n\n");
 
