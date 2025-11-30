@@ -1,0 +1,15 @@
+# Fichiers compilés
+*.exe
+*.out
+*.o
+*.obj
+*.gch
+*.gitigno
+
+# Dossiers de build
+/build/
+/bin/
+/dist/
+
+# Merdier de VS Code
+.vscode/
