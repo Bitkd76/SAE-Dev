@@ -7,7 +7,9 @@
 
 //========== format fichierhier:   numBus,villeDepart,villeArrivee,dateDepart,horaireDepart,horaireArrivee,id:nom:prixBillet,.. =========== //
 //========= Beaucoup de ligne/fonctions... differentes donc ne pas hesiter de commenter ==========//
-int main(){                                         // Menu principal [Bilal]
+
+//====[BILAL]====//
+int main(){
     int choix;
     int i=0;
     printf("1 - tous les trajets pre    vus \n\n");
