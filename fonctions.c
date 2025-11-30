@@ -37,25 +37,25 @@ void affichage_tout_traget(FILE *f){ // afficher ville depart arrive, date/horai
         while (separateur != NULL) {
             switch (champ) {
                 case 1: 
-                    printf("Ville depart : %s\n", separateur);
+                    printf("  Ville depart : %s\n", separateur);
                     break;
                 case 2: 
-                    printf("Ville arrivee : %s\n", separateur);
+                    printf("  Ville arrivee : %s\n", separateur);
                     break;
                 case 3: 
-                    printf("Date depart : %s\n", separateur);
+                    printf("  Date depart : %s\n", separateur);
                     break;
                 case 4:
                     horaire = atoi(separateur); // aoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int)
                     h = horaire / 100;
                     m = horaire % 100;
-                    printf("Horaire depart : %02d:%02d\n", h, m);
+                    printf("  Horaire depart : %02d:%02d\n", h, m);
                     break;
                 case 5:
                     horaire = atoi(separateur); // aoi ( vien de stdlib.h et sert a convertir une chaine de caractere en int pas vue en class)
                     h = horaire / 100;
                     m = horaire % 100;
-                    printf("Horaire arrivee : %02d:%02d\n", h, m);
+                    printf("  Horaire arrivee : %02d:%02d\n", h, m);
                     break;
             }
             champ++;    //------------------------------------------ Prend valeur des differents champs selon le format qu'on a vue en cours ----------------//
