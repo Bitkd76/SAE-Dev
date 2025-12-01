@@ -63,6 +63,7 @@ void affichage_tout_traget(FILE *f){ // afficher ville depart arrive, date/horai
         }
         printf("\n----------------------------------\n\n");
     }
+    rewind(f);
 }
 
 
@@ -91,3 +92,18 @@ void affichage_trajet_selon_bus(FILE *f){
 }
 
 
+void affichage_triee(FILE *f){
+
+}
+
+
+//====================================================================================================================//
+//=================================== Droit D'utilisé seulement fonctions vue en classe ==============================//
+//======================================== et non les librairies vue en classe =======================================//
+//====================================================================================================================//
+
+void affichage_trajets(FILE *f){
+    char ligne[max_caracter_ligne(f)];
+
+    
+}

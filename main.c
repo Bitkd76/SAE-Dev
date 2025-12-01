@@ -23,7 +23,9 @@ int main(){
     printf("9 - Trajets tries par CA \n"); //(difference entre les prix des billets payes par les passagers et le cout du trajet supporte par l’entreprise)//, 
     // en dernier si on a finit 10- facultatif //
     printf("10 - Suppression des bus avec CA negatif, en repartissant les passagers sur les trajets identiques, en priorisant les passagers ayant paye le plus sur les dates et horaires les plus proches du trajet initial. Il faudra indiquer le gain genere par cette operation \n");
-    printf("\n\n");
+    printf("\n");
+    printf("20 - Pour quitter le programme\n\n");
+
 
     FILE *fichier = fopen(trajet, "r") ;
     if( fichier == NULL) {
@@ -40,7 +42,6 @@ int main(){
             {
             case 1 :
                 affichage_tout_traget(fichier);
-                i= 1;
                 break;
             case 2 :
                 affichage_trajet_selon_bus(fichier);
@@ -77,6 +78,10 @@ int main(){
             case 10 :
                 // La possibilite de supprimer tous les bus avec un chiffre d’affaires negatif, en repart   
                 // issant les passagers sur les trajets identiques, en priorisant les passagers ayant paye le plus sur les dates et horaires les plus proches du trajet initial. Il faudra indiquer le gain genere par cette operation
+
+                break;
+            case 20 :
+                printf("Au revoir !\n");
                 i= 1;
                 break;
                 
