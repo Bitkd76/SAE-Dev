@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fonctions.h"
-#include "type.h" // Assurez-vous que votre fichier d'en-tête est bien nommé "types.h"
+#include "type.h" 
 
 // Définition des variables globales (déclarées "extern" dans types.h)
 Trajet trajets[MAX_LIGNES];
@@ -303,63 +303,66 @@ void afficherTrajetParBus(int numBusRecherche) {
     }
 }
 
-
-// --- Fonctionnalité 3: Affichage des trajets triés ---
-
-int comparerTrajets(const Trajet *t1, const Trajet *t2) {
-    // 1. Tri par ville de départ (alphabétique)
-    int cmp_ville = strcmp(t1->villeDepart, t2->villeDepart);
-    if (cmp_ville != 0) {
-        return cmp_ville;
-    }
-
-    // 2. Tri par date de départ (chronologique)
-    if (t1->dateDepart.annee != t2->dateDepart.annee) {
-        return t1->dateDepart.annee - t2->dateDepart.annee;
-    }
-    if (t1->dateDepart.mois != t2->dateDepart.mois) {
-        return t1->dateDepart.mois - t2->dateDepart.mois;
-    }
-    if (t1->dateDepart.jour != t2->dateDepart.jour) {
-        return t1->dateDepart.jour - t2->dateDepart.jour;
-    }
-    
-    // Heure (pour stabilité si tout est identique)
-    int h1 = t1->horaireDepart.heure * 100 + t1->horaireDepart.minute;
-    int h2 = t2->horaireDepart.heure * 100 + t2->horaireDepart.minute;
-    return h1 - h2;
-}
-
-void afficherTrajetsTries() {
-    printf("\n=== 3. Affichage des trajets triés (Ville Départ / Date Départ) ===\n");
-    if (nombreTrajets == 0) {
-        printf("Aucun trajet n'a été chargé.\n");
-        return;
-    }
-
-    // Créer une copie du tableau de trajets pour le tri (Tri à Bulles)
-    Trajet trajetsTries[MAX_LIGNES];
-    for(int i = 0; i < nombreTrajets; i++) {
-        trajetsTries[i] = trajets[i];
-    }
-    
-    // Tri à bulles
-    for (int i = 0; i < nombreTrajets - 1; i++) {
-        for (int j = 0; j < nombreTrajets - 1 - i; j++) {
-            if (comparerTrajets(&trajetsTries[j], &trajetsTries[j + 1]) > 0) {
-                Trajet temp = trajetsTries[j];
-                trajetsTries[j] = trajetsTries[j + 1];
-                trajetsTries[j + 1] = temp;
-            }
-        }
-    }
-
-    // Affichage des résultats triés (réutilise l'affichage simple)
-    printf("+-----+----------------+----------------+-------------+---------+-------------+\n");
-    printf("| Bus | Ville Départ   | Ville Arrivée  | Date Départ | H. Dép. | H. Arr.     |\n");
-    printf("+-----+----------------+----------------+-------------+---------+-------------+\n");
-    for (int i = 0; i < nombreTrajets; i++) {
-        afficherTrajetSimple(&trajetsTries[i]);
-    }
-    printf("+-----+----------------+----------------+-------------+---------+-------------+\n");
-}
+/********************************************************************************************************/
+/********************************************************************************************************/
+/*     --- Fonctionnalité 3: Affichage des trajets triés ---                                            */                                                                                                  
+/**/                                                                                                  /**/          
+/**/ int comparerTrajets(const Trajet *t1, const Trajet *t2) {                                        /**/                                                                  
+/**/     // 1. Tri par ville de départ (alphabétique)                                                 /**/                                                          
+/**/     int cmp_ville = strcmp(t1->villeDepart, t2->villeDepart);                                    /**/                                                                      
+/**/     if (cmp_ville != 0) {                                                                        /**/                                  
+/**/         return cmp_ville;                                                                        /**/                                  
+/**/     }                                                                                            /**/              
+/**/                                                                                                  /**/          
+/**/     // 2. Tri par date de départ (chronologique)                                                 /**/                                                          
+/**/     if (t1->dateDepart.annee != t2->dateDepart.annee) {                                          /**/                                                                  
+/**/         return t1->dateDepart.annee - t2->dateDepart.annee;                                      /**/                                                                      
+/**/     }                                                                                            /**/              
+/**/     if (t1->dateDepart.mois != t2->dateDepart.mois) {                                            /**/                                                              
+/**/         return t1->dateDepart.mois - t2->dateDepart.mois;                                        /**/                                                                  
+/**/     }                                                                                            /**/              
+/**/     if (t1->dateDepart.jour != t2->dateDepart.jour) {                                            /**/                                                              
+/**/         return t1->dateDepart.jour - t2->dateDepart.jour;                                        /**/                                                                  
+/**/     }                                                                                            /**/              
+/**/                                                                                                  /**/              
+/**/     // Heure (pour stabilité si tout est identique)                                              /**/                                                              
+/**/     int h1 = t1->horaireDepart.heure * 100 + t1->horaireDepart.minute;                           /**/                                                                              
+/**/     int h2 = t2->horaireDepart.heure * 100 + t2->horaireDepart.minute;                           /**/                                                                              
+/**/     return h1 - h2;                                                                              /**/                              
+/**/ }                                                                                                /**/          
+/**/                                                                                                  /**/          
+/**/ void afficherTrajetsTries() {                                                                    /**/                                      
+/**/     printf("\n=== 3. Affichage des trajets triés (Ville Départ / Date Départ) ===\n");           /**/                                                                                              
+/**/     if (nombreTrajets == 0) {                                                                    /**/                                      
+/**/         printf("Aucun trajet n'a été chargé.\n");                                                /**/                                                          
+/**/         return;                                                                                  /**/                          
+/**/     }                                                                                            /**/              
+/**/                                                                                                  /**/          
+/**/     // Créer une copie du tableau de trajets pour le tri (Tri à Bulles)                          /**/                                                                                  
+/**/     Trajet trajetsTries[MAX_LIGNES];                                                             /**/                                              
+/**/     for(int i = 0; i < nombreTrajets; i++) {                                                     /**/                                                      
+/**/         trajetsTries[i] = trajets[i];                                                            /**/                                              
+/**/     }                                                                                            /**/              
+/**/                                                                                                  /**/              
+/**/     // Tri à bulles                                                                              /**/                              
+/**/     for (int i = 0; i < nombreTrajets - 1; i++) {                                                /**/                                                          
+/**/         for (int j = 0; j < nombreTrajets - 1 - i; j++) {                                        /**/                                                                  
+/**/             if (comparerTrajets(&trajetsTries[j], &trajetsTries[j + 1]) > 0) {                   /**/                                                                                      
+/**/                 Trajet temp = trajetsTries[j];                                                   /**/                                                      
+/**/                 trajetsTries[j] = trajetsTries[j + 1];                                           /**/                                                              
+/**/                 trajetsTries[j + 1] = temp;                                                      /**/                                                      
+/**/             }                                                                                    /**/                      
+/**/         }                                                                                        /**/                  
+/**/     }                                                                                            /**/              
+/**/                                                                                                  /**/          
+/**/     // Affichage des résultats triés (réutilise l'affichage simple)                              /**/                                                                              
+/**/     printf("+-----+----------------+----------------+-------------+---------+-------------+\n"); /**/                                                                                                          
+/**/     printf("| Bus | Ville Départ   | Ville Arrivée  | Date Départ | H. Dép. | H. Arr.     |\n"); /**/                                                                                                          
+/**/     printf("+-----+----------------+----------------+-------------+---------+-------------+\n"); /**/                                                                                                          
+/**/     for (int i = 0; i < nombreTrajets; i++) {                                                    /**/                                                      
+/**/         afficherTrajetSimple(&trajetsTries[i]);                                                  /**/                                                          
+/**/     }                                                                                            /**/              
+/**/     printf("+-----+----------------+----------------+-------------+---------+-------------+\n"); /**/                                                                                                          
+/**/ }                                                                                                /**/          
+/********************************************************************************************************/
+/********************************************************************************************************/
