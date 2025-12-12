@@ -3,95 +3,124 @@
 #include <time.h>
 #include <string.h>
 #include "fonctions.h"
-#include "type.h"
+#include "type.h" // Changé 'type.h' en 'types.h' pour la cohérence
 
-//========== format fichierhier:   numBus,villeDepart,villeArrivee,dateDepart,horaireDepart,horaireArrivee,id:nom:prixBillet,.. =========== //
-//========= Beaucoup de ligne/fonctions... differentes donc ne pas hesiter de commenter ==========//
+// Définition du nom de fichier pour le chargement initial
+#define NOM_FICHIER "trajets_bus.csv" 
+
+// Fonction pour la lecture sécurisée d'un entier
+int lireEntier() {
+    int val;
+    // On s'assure de consommer toute la ligne d'entrée après le nombre
+    if (scanf("%d", &val) != 1) {
+        // Vider le buffer d'entrée en cas d'échec de lecture (caractère non numérique)
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+        return -1; // Indiquer une erreur
+    }
+    return val;
+}
+
 
 //====[BILAL]====//
-int main(){
-    int choix;
-    int i=0;
-    printf("1 - tous les trajets prevus \n");
-    printf("2 - afficher toutes les informations sur le traget a partir du numeros d'un bus\n");
-    printf("3 - affichage de tous les trajtes tries par ville de depart et date de depart \n");
-    printf("4 - ajout et suppression de clients a partir du numero d'un bus\n");
-    printf("5 - ajouter/modifier le nom/prix billet d'un client selon num bus + iDclient  \n");
-    printf("6 - Sauvegarde des donnees dans un fichier \n");
-    printf("7 - Trajets partant d une ville, partant a une date, arrivant le lendemain \n");
-    printf("8 - Trajets combinant ville de depart, ville arrivee et date de depart \n");
-    printf("9 - Trajets tries par CA \n"); //(difference entre les prix des billets payes par les passagers et le cout du trajet supporte par l’entreprise)//, 
-    // en dernier si on a finit 10- facultatif //
-    printf("10 - Suppression des bus avec CA negatif, en repartissant les passagers sur les trajets identiques, en priorisant les passagers ayant paye le plus sur les dates et horaires les plus proches du trajet initial. Il faudra indiquer le gain genere par cette operation \n");
-    printf("\n");
-    printf("20 - Pour quitter le programme\n\n");
-
-
-    FILE *fichier = fopen(trajet, "r") ;
-    if( fichier == NULL) {
-        perror("fopen") ;
-        printf("Erreur lors de l'ouverture du fichierhier des trajets.\n");
-        exit(EXIT_FAILURE) ;
+int main() {
+    int choix = 0;
+    int num_bus_recherche;
+    
+    // --- ÉTAPE 1: CHARGEMENT DU FICHIER ---
+    
+    printf("Tentative de chargement du fichier: %s\n", NOM_FICHIER);
+    
+    if (chargerTrajets(NOM_FICHIER) == 0) {
+        printf("Erreur critique: Aucune donnée de trajet chargée. Fin du programme.\n");
+        return EXIT_FAILURE;
     }
-    else{
-        while (i==0)
-        {
+    
+    printf("\n--- %d trajets chargés avec succès. ---\n\n", nombreTrajets);
+    
+    // --- ÉTAPE 2: MENU INTERACTIF ---
+    
+    while (choix != 20) {
+        printf("================ MENU BUS ================\n");
+        printf("1  - Afficher tous les trajets prévus\n");
+        printf("2  - Afficher informations trajet (par numéro de bus)\n");
+        printf("3  - Afficher tous les trajets triés (Ville Départ / Date Départ)\n");
+        printf("4  - Gestion des passagers (Ajout/Suppression) [NON IMPLÉMENTÉ]\n");
+        printf("5  - Modifier Nom/Prix billet d'un passager [NON IMPLÉMENTÉ]\n");
+        printf("6  - Sauvegarde des données dans un fichier [NON IMPLÉMENTÉ]\n");
+        printf("7  - Filtrer : Trajets partant d'une ville, à une date, arrivant le lendemain [NON IMPLÉMENTÉ]\n");
+        printf("8  - Filtrer : Trajets combinant Ville Départ, Ville Arrivée et Date Départ [NON IMPLÉMENTÉ]\n");
+        printf("9  - Afficher trajets triés par Chiffre d'Affaires (CA) [NON IMPLÉMENTÉ]\n");
+        printf("10 - Suppression des bus à CA négatif et redistribution [NON IMPLÉMENTÉ]\n");
+        printf("\n20 - Quitter le programme\n");
+        printf("===========================================\n");
+        
         printf("Votre choix : ");
-        scanf("%d", &choix);
-            switch (choix)
-            {
+        choix = lireEntier(); // Utilisation de la fonction de lecture sécurisée
+        
+        if (choix == -1) {
+            printf("Entrée invalide. Veuillez entrer un numéro.\n");
+            choix = 0; // Remettre le choix à une valeur neutre
+            continue;
+        }
+
+        switch (choix) {
             case 1 :
-                affichage_tout_traget(fichier);
+                // Fonctionnalité 1
+                afficherTousTrajets();
                 break;
             case 2 :
-                affichage_trajet_selon_bus(fichier);
-                i= 1;
+                // Fonctionnalité 2
+                printf("Entrez le numéro du bus à afficher : ");
+                num_bus_recherche = lireEntier();
+                if (num_bus_recherche != -1) {
+                    afficherTrajetParBus(num_bus_recherche);
+                } else {
+                    printf("Numéro de bus invalide.\n");
+                }
                 break;
             case 3 :
-                // affichage de tous les trajtes tries par ville de depart et par date de depart
-                i= 1;
+                // Fonctionnalité 3
+                afficherTrajetsTries();
                 break;
             case 4 :
-                // a partir du numero d'un bus, ajout et suppression de clients
-                i= 1;
+                // Fonctionnalité 4 (A implémenter)
+                printf("Fonctionnalité 4 : Ajout et suppression de clients. (A implémenter)\n");
                 break;
             case 5 :
-                // a partir du numero d'un bus et id cleint, modifichieration ou ajout du nom client ou prix de son billet
-                i= 1; 
-                break;
+                // Fonctionnalité 5 (A implémenter)
+                printf("Fonctionnalité 5 : Modification Nom/Prix Billet. (A implémenter)\n");
+                break; 
             case 6 :
-                // la sauvegarde des donnees dans un fichierhier
-                i= 1;
+                // Fonctionnalité 6 (A implémenter)
+                printf("Fonctionnalité 6 : Sauvegarde des données. (A implémenter)\n");
                 break;
             case 7 :
-                // un filtre sur les trajets partant d’une ville, partant a une date, arrivant le lendemain
-                i= 1;
+                // Fonctionnalité 7 (A implémenter)
+                printf("Fonctionnalité 7 : Filtrage (Ville Départ, Date Départ, Arrivée J+1). (A implémenter)\n");
                 break;
             case 8 :
-                // un filtre sur les trajets combinant ville de depart, ville d’arrivee et date de depart
-                i= 1;
+                // Fonctionnalité 8 (A implémenter)
+                printf("Fonctionnalité 8 : Filtrage (Ville Départ, Ville Arrivée, Date Départ). (A implémenter)\n");
                 break;
             case 9 :
-                // l’affichage des trajets tries par chiffre d’affaires (difference entre les prix des billets payes par les passagers et le coût du trajet supporte par l’entreprise), avec affichage de ce chiffre d’affaires
-                i= 1;
+                // Fonctionnalité 9 (A implémenter)
+                printf("Fonctionnalité 9 : Affichage des trajets triés par CA. (A implémenter)\n");
                 break;
             case 10 :
-                // La possibilite de supprimer tous les bus avec un chiffre d’affaires negatif, en repart   
-                // issant les passagers sur les trajets identiques, en priorisant les passagers ayant paye le plus sur les dates et horaires les plus proches du trajet initial. Il faudra indiquer le gain genere par cette operation
-
+                // Fonctionnalité 10 (A implémenter)
+                printf("Fonctionnalité 10 : Suppression des bus à CA négatif. (A implémenter)\n");
                 break;
             case 20 :
                 printf("Au revoir !\n");
-                i= 1;
                 break;
-                
             default:
-                printf("Choix invalide.\n");
+                printf("Choix invalide. Veuillez sélectionner une option valide.\n");
                 break;
-            } 
+        }
+    
     }
-    fclose(fichier) ;
-    return EXIT_SUCCESS ;
-
-    }
+    
+    // Pas besoin de fclose, car le fichier est fermé dans chargerTrajets
+    return EXIT_SUCCESS;
 }

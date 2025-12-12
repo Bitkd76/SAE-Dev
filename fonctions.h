@@ -1,15 +1,22 @@
+// fonctions.h
 #ifndef FONCTIONS_H
 #define FONCTIONS_H
 
 #include "type.h"
-#include <stdio.h>
 
-void affichage_tout_traget(FILE *f);
+// Fonctions Utilitaires (Parsing CSV)
+int extraireEntier(const char *chaine, int *index, char delim);
+float extraireFlottant(const char *chaine, int *index, char delim);
+void extraireChaine(const char *chaine, int *index, char delim, char *destination);
 
-int max_caracter_ligne(FILE *f);
+// Fonction de Chargement
+int chargerTrajets(const char *nomFichier);
 
-void affichage_trajet_selon_bus(FILE *f);
+// Fonctions d'Affichage et de Traitement (Fonctionnalités)
+void afficherTrajetSimple(const Trajet *t);
+void afficherTousTrajets();                                      // Fonctionnalité 1
+void afficherTrajetParBus(int numBusRecherche);                  // Fonctionnalité 2
+int comparerTrajets(const Trajet *t1, const Trajet *t2);         // Fonction de comparaison pour le tri
+void afficherTrajetsTries();                                     // Fonctionnalité 3
 
-
-
-#endif
+#endif // FONCTIONS_H
