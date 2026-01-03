@@ -9,52 +9,91 @@ Bus b[MAX_BUS];
 Passager p[MAX_PASSAGERS];
 
 //== Bilal ==// //== IMPLEMENTATION NE FONCTIONNE PLUS JSP POURQUOI JVAIS TOUT CASSER ==//
-int implementation_struct(FILE *f) {
-    int i = 0;
+void implementation_struct(FILE *f) {
+    char line[2000];
+    int bus_index = 0;
 
-    while (i < MAX_BUS) {
-        int ret = fscanf(f, "%d,%49[^,],%49[^,],%49[^,],%49[^,],%49[^,\n]",
-                         &b[i].numBus,
-                         b[i].villeDepart,
-                         b[i].villeArrivee,
-                         b[i].dateDepart,
-                         b[i].horaireDepart,
-                         b[i].horaireArrivee);
-        if (ret != 6) break; // fin fichier ou ligne invalide
+    while (fgets(line, sizeof(line), f) != NULL && bus_index < MAX_BUS) {
+        int i = 0, j = 0, k = 0;
+        char temp[50];
 
-        // initialiser les passagers
-        for (int j = 0; j < MAX_PASSAGERS; j++) {
-            b[i].p[j].id = 0;
-            b[i].p[j].nom[0] = '\0';
-            b[i].p[j].prixBillet = 0.0;
+        // ---- numBus ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        b[bus_index].numBus = atoi(temp);
+        if (line[i] == ',') i++;
+
+        // ---- villeDepart ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        strcpy(b[bus_index].villeDepart, temp);
+        if (line[i] == ',') i++;
+
+        // ---- villeArrivee ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        strcpy(b[bus_index].villeArrivee, temp);
+        if (line[i] == ',') i++;
+
+        // ---- dateDepart ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        strcpy(b[bus_index].dateDepart, temp);
+        if (line[i] == ',') i++;
+
+        // ---- horaireDepart ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        strcpy(b[bus_index].horaireDepart, temp);
+        if (line[i] == ',') i++;
+
+        // ---- horaireArrivee ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        strcpy(b[bus_index].horaireArrivee, temp);
+        if (line[i] == ',') i++;
+
+        // ---- passagers ----
+        int pass_index = 0;
+        while (line[i] != '\0' && line[i] != '\n' && pass_index < MAX_PASSAGERS) {
+            // id
+            k = 0;
+            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            temp[k] = '\0';
+            b[bus_index].p[pass_index].id = atoi(temp);
+            if (line[i] == ':') i++;
+
+            // nom
+            k = 0;
+            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            temp[k] = '\0';
+            strcpy(b[bus_index].p[pass_index].nom, temp);
+            if (line[i] == ':') i++;
+
+            // prix
+            k = 0;
+            while (line[i] != ',' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            temp[k] = '\0';
+            b[bus_index].p[pass_index].prixBillet = atof(temp);
+
+            pass_index++;
+            if (line[i] == ',') i++;
         }
 
-        int j = 0;
-        while (j < MAX_PASSAGERS) {
-            int id;
-            char nom[MAX_CARAC];
-            float prix;
-
-            int k = fscanf(f, "%d:%49[^:]:%f", &id, nom, &prix);
-            if (k != 3) break;
-
-            b[i].p[j].id = id;
-            strcpy(b[i].p[j].nom, nom);
-            b[i].p[j].prixBillet = prix;
-
-            j++;
-
-            char c = fgetc(f);
-            if (c == '\n' || c == EOF) break;
-        }
-        
-        int c;
-        while ((c = fgetc(f)) != '\n' && c != EOF);
-
-        i++;
+        bus_index++;
     }
-
-    return i;
 }
 
 
@@ -79,18 +118,17 @@ void afficher_selon_num(FILE *f) {
     scanf("%d", &num);
 
     for (int i = 0; i < MAX_BUS; i++) {
-        printf("%d\n",b[i].numBus);
         if (b[i].numBus == num) {
             printf("------------------\n");
             printf("Bus %d\nDepart: %s\nArrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
             printf("Date : %s\n", b[i].dateDepart);
             printf("Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
-
+            printf("--------------\n");
             printf("Passagers:\n");
             for (int j = 0; j < MAX_PASSAGERS; j++) {
                 if (b[i].p[j].id == 0) break; 
-                printf("%d %s %.2f€\n",
+                printf("%d %s %.2f eu\n",
                        b[i].p[j].id,
                        b[i].p[j].nom,
                        b[i].p[j].prixBillet);
