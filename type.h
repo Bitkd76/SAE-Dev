@@ -1,44 +1,26 @@
-// types.h
 #ifndef TYPES_H
 #define TYPES_H
 
-// Constantes
-#define MAX_LIGNES 100
+#define FICHIER "trajets_bus.csv" 
+#define MAX_CARAC 50
 #define MAX_PASSAGERS 55
-#define TAILLE_LIGNE 4096
-#define TAILLE_CHAINE 50
-
-// --- Structures de données ---
-typedef struct {
-    int jour;
-    int mois;
-    int annee;
-} Date;
-
-typedef struct {
-    int heure;
-    int minute;
-} Heure;
+#define MAX_BUS 5000
 
 typedef struct {
     int id;
-    char nom_prenom[TAILLE_CHAINE];
+    char nom[MAX_CARAC];
     float prixBillet;
 } Passager;
 
 typedef struct {
     int numBus;
-    char villeDepart[TAILLE_CHAINE];
-    char villeArrivee[TAILLE_CHAINE];
-    Date dateDepart;
-    Heure horaireDepart;
-    Heure horaireArrivee;
-    Passager passagers[MAX_PASSAGERS];
-    int nombrePassagers;
-} Trajet;
+    char villeDepart[MAX_CARAC];
+    char villeArrivee[MAX_CARAC];
+    char dateDepart[MAX_CARAC];
+    char horaireDepart[MAX_CARAC];
+    char horaireArrivee[MAX_CARAC];
+    Passager p[MAX_PASSAGERS];
+} Bus;
 
-// Déclaration des variables globales
-extern Trajet trajets[MAX_LIGNES];
-extern int nombreTrajets;
 
-#endif // TYPES_H
+#endif 

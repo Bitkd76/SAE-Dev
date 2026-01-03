@@ -1,22 +1,11 @@
-// fonctions.h
 #ifndef FONCTIONS_H
 #define FONCTIONS_H
 
 #include "type.h"
+#include <stdio.h>
 
-// Fonctions Utilitaires (Parsing CSV)
-int extraireEntier(const char *chaine, int *index, char delim);
-float extraireFlottant(const char *chaine, int *index, char delim);
-void extraireChaine(const char *chaine, int *index, char delim, char *destination);
+void afficher_tous_trajets(FILE *f);
+void implementation_struct(FILE *f);
+void afficher_selon_num(FILE *f);
 
-// Fonction de Chargement
-int chargerTrajets(const char *nomFichier);
-
-// Fonctions d'Affichage et de Traitement (Fonctionnalités)
-void afficherTrajetSimple(const Trajet *t);
-void afficherTousTrajets();                                      // Fonctionnalité 1
-void afficherTrajetParBus(int numBusRecherche);                  // Fonctionnalité 2
-int comparerTrajets(const Trajet *t1, const Trajet *t2);         // Fonction de comparaison pour le tri
-void afficherTrajetsTries();                                     // Fonctionnalité 3
-
-#endif // FONCTIONS_H
+#endif 
