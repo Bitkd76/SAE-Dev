@@ -4,14 +4,13 @@
 #include "fonctions.h"
 #include "type.h" 
 
-//== faudrais commenter le tout pour mieux retenir chaque fonction faites ==//
 
 Bus b[MAX_BUS];
 Passager p[MAX_PASSAGERS];
 
 //== Bilal ==// 
 void implementation_struct(FILE *f) {
-    char line[6000];
+    char line[2000];
     int bus_index = 0;
 
     while (fgets(line, sizeof(line), f) != NULL && bus_index < MAX_BUS) {
@@ -92,6 +91,7 @@ void implementation_struct(FILE *f) {
             pass_index++;
             if (line[i] == ',') i++;
         }
+
         bus_index++;
     }
 }
@@ -157,141 +157,3 @@ void trier_par_ville_et_date(FILE *f) {
 }
 
 
-//== Bilal ==//
-void ajouter_passager(FILE *f) {
-    int num;
-    printf("Numero du bus : ");
-    scanf("%d", &num);
-
-    for (int i = 0; i < MAX_BUS; i++) {
-        if (b[i].numBus == num) {
-            int j;
-            for (j = 0; j < MAX_PASSAGERS; j++) {
-                if (b[i].p[j].id == 0) break;
-            }
-
-            if (j == MAX_PASSAGERS) {
-                printf("Bus complet !\n");
-                return;
-            }
-
-            printf("ID : "); 
-                scanf("%d", &b[i].p[j].id);
-            printf("Nom : "); 
-                scanf(" %[^\n]", b[i].p[j].nom); // %[^\n] pour tout caractere exmpl: Jean Simon si %s arret a Jean /!\ //
-            printf("Prix billet : "); 
-                scanf("%f", &b[i].p[j].prixBillet);
-
-            printf("Passager ajoutee.\n");
-            return;
-        }
-    }
-    printf("Bus non trouvee\n");
-}
-
-//== Bilal ==//
-void supprimer_passager(FILE *f) {
-    int num, id;
-    printf("Numero du bus : ");
-    scanf("%d", &num);
-    printf("ID du passager à supprimer : ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < MAX_BUS; i++) {
-        if (b[i].numBus == num) {
-            for (int j = 0; j < MAX_PASSAGERS; j++) {
-                if (b[i].p[j].id == id) {
-                    for (int k = j; k < MAX_PASSAGERS - 1; k++) {
-                        b[i].p[k] = b[i].p[k + 1];
-                    }
-                    b[i].p[MAX_PASSAGERS - 1].id = 0;
-                    b[i].p[MAX_PASSAGERS - 1].nom[0] = '\0';
-                    b[i].p[MAX_PASSAGERS - 1].prixBillet = 0.0;
-
-                    printf("Passager supprime.\n");
-                    return;
-                }
-            }
-            printf("Passager Non trouvee !\n");
-            return;
-        }
-    }
-    printf("Bus non trouvee !\n");
-}
-
-//== Bilal ==//
-void maj_nv_fichier(void){
-    FILE *s = fopen("sauvegarde_trajet_bus.csv", "w");
-    if (s == NULL){
-        printf("Erreur lors de l'ouverture du fichier.\n");
-        return;
-    }
-
-    for (int i = 0; i < MAX_BUS; i++){
-        fprintf(s, "%d,%s,%s,%s,%s,%s",
-                b[i].numBus,
-                b[i].villeDepart,
-                b[i].villeArrivee,
-                b[i].dateDepart,
-                b[i].horaireDepart,
-                b[i].horaireArrivee);
-
-        for (int j = 0; j < MAX_PASSAGERS; j++){
-            fprintf(s, ",%d;%s,%.2f",
-                    b[i].p[j].id,
-                    b[i].p[j].nom,
-                    b[i].p[j].prixBillet);
-        }
-        fprintf(s, "\n");
-    }
-
-    fclose(s);
-}
-
-
-void modif_nom_prix(FILE *f){
-    int id,num,choix;
-    float prix;
-    char nom[MAX_CARAC];
-    printf("Veuillez saisir le numero du bus: ");
-    scanf("%d",&num);
-    printf("Veuillez saisir l'id du client: ");
-    scanf("%d",&id);
-    printf("1 - Modification/Ajout du nom\n");
-    printf("2 - Modification du prix du billet\n");
-    printf("Choix: ");
-    scanf("%d",&choix);
-    switch (choix)
-    {
-    case 1:
-        for(int i=0;i<MAX_BUS;i++){
-            if (b[i].numBus == num){
-                for (int j = 0; j < MAX_PASSAGERS; j++){
-                    if (b[i].p[j].id == id){
-                        printf("Saisir le nom: ");
-                        scanf("%s",&nom);
-                        strcpy(b[i].p[j].nom, nom);
-                    }
-                }
-            }
-        }
-        break;
-    
-    case 2:
-        for(int i=0;i<MAX_BUS;i++){
-            if (b[i].numBus == num){
-                for (int j = 0; j < MAX_PASSAGERS; j++){
-                    if (b[i].p[j].id == id){
-                        printf("Saisir le prix du billet: ");
-                        scanf("%f",&prix);
-                        b[i].p[j].prixBillet = prix;
-                    }
-                }
-            }
-        }
-        break;
-    default:
-        printf("Choix invalide\n");
-        break;
-    }
-}
