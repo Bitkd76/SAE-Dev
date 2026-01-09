@@ -4,6 +4,7 @@
 #include "fonctions.h"
 #include "type.h" 
 
+
 //== faudrais commenter le tout pour mieux retenir chaque fonction faites ==//
 
 Bus b[MAX_BUS];
@@ -293,5 +294,43 @@ void modif_nom_prix(FILE *f){
     default:
         printf("Choix invalide\n");
         break;
+    }
+}
+
+// fonction de la 7 mais pas possible avec les strcut que j'ai mis en place pour l'instant car on peut pas checker 2 date diff
+void filtre_ville_date_lendemain(FILE *f){
+    char villedep[MAX_CARAC];
+    char date[MAX_CARAC];
+    printf("Veuillez saisr la ville de depart: ");
+    scanf("%s",villedep);
+    printf("La date de depart: ");
+    scanf("%s",date);
+    /*
+    for(int i=0; i<MAX_BUS;i++){
+        if(villedep == b[i].villeDepart && ) // ajout de condition arriver le lendemain mais a cause de la structure de mes date il est impossible ( du moin je pense donc il vas falloir faire comme les passager mais il faut reaminer la date pour la mettre dans un struct apprt et donc ajuster affichage et utilisation des autre code 
+    }
+    */
+}
+
+
+//== Bilal ==//
+void combiner_villedep_villearriv_datedep(FILE *f){
+    char villedep[MAX_CARAC];
+    char villearriv[MAX_CARAC];
+    char date[MAX_CARAC];
+    printf("Veuillez saisir la ville de depart: ");
+    scanf("%s",villedep);
+    printf("La ville d arriver: ");
+    scanf("%s",villearriv);
+    printf("La date de depart: ");
+    scanf("%s",date);
+    for(int i=0; i<MAX_BUS;i++){
+        if(strcmp(villedep,b[i].villeDepart)== 0 && strcmp(villearriv,b[i].villeArrivee)==0 && strcmp(date,b[i].dateDepart)==0){
+            printf("------------------\n");
+            printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
+            printf(" Date : %s\n", b[i].dateDepart);
+            printf(" Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
+            printf("------------------\n");
+        }
     }
 }

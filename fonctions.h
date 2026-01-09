@@ -12,5 +12,6 @@ void supprimer_passager(FILE *f);
 void ajouter_passager(FILE *f);
 void modif_nom_prix(FILE *f);
 void maj_nv_fichier();
+void combiner_villedep_villearriv_datedep(FILE *f);
 
 #endif 
