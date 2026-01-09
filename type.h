@@ -6,6 +6,13 @@
 #define MAX_PASSAGERS 55
 #define MAX_BUS 5000
 
+typedef struct 
+{
+    int idbus;
+    double chiffre_affaire;
+}CA;
+
+
 typedef struct {
     int id;
     char nom[MAX_CARAC];

@@ -145,9 +145,10 @@ void afficher_selon_num(FILE *f) {
 
 //== Bilal ==//
 void trier_par_ville_et_date(FILE *f) {
+    int cmp;
     for (int i = 0; i < MAX_BUS - 1; i++) {
         for (int j = 0; j < MAX_BUS - i - 1; j++) {
-            int cmp = strcmp(b[j].villeDepart, b[j + 1].villeDepart);
+            cmp = strcmp(b[j].villeDepart, b[j + 1].villeDepart);
             if (cmp > 0 || (cmp == 0 && strcmp(b[j].dateDepart, b[j + 1].dateDepart) > 0)) {
                 Bus temp = b[j];
                 b[j] = b[j + 1];
@@ -249,7 +250,7 @@ void maj_nv_fichier(void){
     fclose(s);
 }
 
-
+//== Bilal ==//
 void modif_nom_prix(FILE *f){
     int id,num,choix;
     float prix;
@@ -298,6 +299,7 @@ void modif_nom_prix(FILE *f){
 }
 
 // fonction de la 7 mais pas possible avec les strcut que j'ai mis en place pour l'instant car on peut pas checker 2 date diff
+//== Bilal ==//
 void filtre_ville_date_lendemain(FILE *f){
     char villedep[MAX_CARAC];
     char date[MAX_CARAC];
@@ -333,4 +335,36 @@ void combiner_villedep_villearriv_datedep(FILE *f){
             printf("------------------\n");
         }
     }
+}
+
+
+void ca_triee(FILE *f){
+    CA trajet[MAX_BUS];
+    int somme_par_trajet;
+    for (int i=0; i<MAX_BUS; i++){
+        somme_par_trajet = 0;
+        for(int j=0;j<MAX_PASSAGERS;j++){
+            somme_par_trajet = somme_par_trajet + b[i].p[j].prixBillet;
+        }
+        trajet[i].idbus = b[i].numBus;
+        trajet[i].chiffre_affaire= somme_par_trajet;
+    }
+    for(int i=0; i<MAX_BUS;i++){
+        double tmp;
+        for (int j = 0; j < MAX_BUS - i - 1; j++)
+        {
+            if(trajet[j].chiffre_affaire > trajet[j+1].chiffre_affaire){
+                tmp = trajet[j].chiffre_affaire;
+                trajet[j].chiffre_affaire = trajet[j+1].chiffre_affaire;
+                trajet[j+1].chiffre_affaire = tmp;
+            }
+        } 
+    }
+    for(int i=0; i<MAX_BUS;i++){
+        printf("--------------\n");
+        printf("Bus: %d \n",trajet[i].idbus);
+        printf("CA: %.2lf eu\n", trajet[i].chiffre_affaire);
+        printf("--------------\n");
+    }
+
 }

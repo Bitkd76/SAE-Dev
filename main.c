@@ -93,7 +93,7 @@ int main() {
                 combiner_villedep_villearriv_datedep(f);
                 break;
             case 9 :
-
+                ca_triee(f);
                 break;
             case 10 :
 
