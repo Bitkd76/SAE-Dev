@@ -113,7 +113,7 @@ void implementation_struct(FILE *f) {
 }
 
 //== Bilal ==//
-void afficher_tous_trajets(FILE *f) {
+void afficher_tous_trajets() {
     for (int i = 0; i < MAX_BUS; i++){
         printf("------------------\n");
         printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
@@ -127,7 +127,7 @@ void afficher_tous_trajets(FILE *f) {
 }
 
 //== Bilal ==// 
-void afficher_selon_num(FILE *f) {
+void afficher_selon_num() {
     int num;
     printf("Saisir numero de bus souhaite: ");
     scanf("%d", &num);
@@ -161,7 +161,7 @@ void afficher_selon_num(FILE *f) {
 
 
 //== Bilal ==//
-void trier_par_ville_et_date(FILE *f) {
+void trier_par_ville_et_date() {
     int cmp;
     for (int i = 0; i < MAX_BUS - 1; i++) {
         for (int j = 0; j < MAX_BUS - i - 1; j++) {
@@ -181,7 +181,7 @@ void trier_par_ville_et_date(FILE *f) {
 
 
 //== Bilal ==//
-void ajouter_passager(FILE *f) {
+void ajouter_passager() {
     int num;
     printf("Numero du bus : ");
     scanf("%d", &num);
@@ -209,7 +209,7 @@ void ajouter_passager(FILE *f) {
 }
 
 //== Bilal ==//
-void supprimer_passager(FILE *f) {
+void supprimer_passager() {
     int num, id;
     printf("Numero du bus : ");
     scanf("%d", &num);
@@ -270,7 +270,7 @@ void maj_nv_fichier(void){
 }
 
 //== Bilal ==//
-void modif_nom_prix(FILE *f){
+void modif_nom_prix(){
     int id,num,choix;
     float prix;
     char nom[MAX_CARAC];
@@ -319,7 +319,7 @@ void modif_nom_prix(FILE *f){
 
 
 //== Bilal ==//
-void filtre_ville_date_lendemain(FILE *f){
+void filtre_ville_date_lendemain(){
     char villedep[MAX_CARAC],date[MAX_CARAC];
     int horaire;
     printf("Veuillez saisr la ville de depart: ");
@@ -342,7 +342,7 @@ void filtre_ville_date_lendemain(FILE *f){
 
 
 //== Bilal ==//
-void combiner_villedep_villearriv_datedep(FILE *f){
+void combiner_villedep_villearriv_datedep(){
     char villedep[MAX_CARAC];
     char villearriv[MAX_CARAC];
     int jour,mois,annee;
@@ -371,7 +371,7 @@ void combiner_villedep_villearriv_datedep(FILE *f){
 }
 
 //== Bilal ==//
-void ca_triee(FILE *f){
+void ca_triee(){
     CA trajet[MAX_BUS];
     int somme_par_trajet;
     for (int i=0; i<MAX_BUS; i++){
@@ -384,7 +384,7 @@ void ca_triee(FILE *f){
     }
     for(int i=0; i<MAX_BUS;i++){
         double tmp;
-        for (int j = 0; j < MAX_BUS - i - 1; j++)
+        for (int j = 0; j < MAX_BUS-i-1 ; j++)
         {
             if(trajet[j].chiffre_affaire > trajet[j+1].chiffre_affaire){
                 tmp = trajet[j].chiffre_affaire;

@@ -41,14 +41,14 @@ int main() {
 
         switch (choix) {
             case 1 :
-                afficher_tous_trajets(f);
+                afficher_tous_trajets();
                 break;
             case 2 :
                 afficher_selon_num(f);
                 break;
             case 3 :
                 trier_par_ville_et_date(f);
-                afficher_tous_trajets(f);
+                afficher_tous_trajets();
                 break;
             case 4 :
                 
@@ -97,7 +97,7 @@ int main() {
                 ca_triee(f);
                 break;
             case 10 :
-
+                printf("Fonction non indentee");
                 break;
             case 20 :
                 printf("Fermeture. \n");
