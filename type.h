@@ -32,8 +32,8 @@ typedef struct {
     char villeDepart[MAX_CARAC];
     char villeArrivee[MAX_CARAC];
     date d;
-    char horaireDepart[MAX_CARAC];
-    char horaireArrivee[MAX_CARAC];
+    int horaireDepart;
+    int horaireArrivee;
     Passager p[MAX_PASSAGERS];
 } Bus;
 

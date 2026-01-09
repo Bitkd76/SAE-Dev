@@ -20,6 +20,8 @@ void modif_nom_prix(FILE *f);
 
 void maj_nv_fichier();
 
+void filtre_ville_date_lendemain(FILE *f);
+
 void combiner_villedep_villearriv_datedep(FILE *f);
 
 void ca_triee(FILE *f);

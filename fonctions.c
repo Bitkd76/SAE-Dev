@@ -71,7 +71,7 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        strcpy(b[bus_index].horaireDepart, temp);
+        b[bus_index].horaireDepart = atoi(temp);
         if (line[i] == ',') i++;
 
         // ---- horaireArrivee ----
@@ -79,7 +79,7 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        strcpy(b[bus_index].horaireArrivee, temp);
+        b[bus_index].horaireArrivee = atoi(temp);
         if (line[i] == ',') i++;
 
         // ---- passagers ----
@@ -118,7 +118,10 @@ void afficher_tous_trajets(FILE *f) {
         printf("------------------\n");
         printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
         printf(" Date : %02d/%02d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
-        printf(" Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
+            printf(" Horaire : %02d:%02d - %02d:%02d\n", 
+                b[i].horaireDepart/100,b[i].horaireDepart%100, 
+                b[i].horaireArrivee/100,b[i].horaireArrivee%100
+            );
         printf("------------------\n");
     }
 }
@@ -135,7 +138,10 @@ void afficher_selon_num(FILE *f) {
             printf("Bus %d\nDepart: %s\nArrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
             printf(" Date : %02d/%02d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
-            printf("Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
+            printf(" Horaire : %02d:%02d - %02d:%02d\n", 
+                b[i].horaireDepart/100,b[i].horaireDepart%100, 
+                b[i].horaireArrivee/100,b[i].horaireArrivee%100
+            );
             printf("--------------\n");
             printf("Passagers:\n");
             for (int j = 0; j < MAX_PASSAGERS; j++) {
@@ -241,7 +247,7 @@ void maj_nv_fichier(void){
     }
 
     for (int i = 0; i < MAX_BUS; i++){
-        fprintf(s, "%d,%s,%s,%02d/%02d/%d,%s,%s",
+        fprintf(s, "%d,%s,%s,%02d/%02d/%d,%04d,%04d",
                 b[i].numBus,
                 b[i].villeDepart,
                 b[i].villeArrivee,
@@ -322,10 +328,13 @@ void filtre_ville_date_lendemain(FILE *f){
     for(int i=0; i<MAX_BUS;i++){
         if(strcmp(villedep,b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart){
             printf("------------------\n");
-            printf("Bus %d\nDepart: %s\nArrivee: %s\n",
+            printf(" Bus %d\n Depart: %s\n Arrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
             printf(" Date : %02d/%02d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
-            printf("Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
+            printf(" Horaire : %02d:%02d - %02d:%02d\n", 
+                b[i].horaireDepart/100,b[i].horaireDepart%100, 
+                b[i].horaireArrivee/100,b[i].horaireArrivee%100
+            );
             printf("--------------\n");
         }
     }
@@ -352,7 +361,10 @@ void combiner_villedep_villearriv_datedep(FILE *f){
             printf("------------------\n");
             printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
             printf(" Date : %02d/%02d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
-            printf(" Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
+            printf(" Horaire : %02d:%02d - %02d:%02d\n", 
+                b[i].horaireDepart/100,b[i].horaireDepart%100, 
+                b[i].horaireArrivee/100,b[i].horaireArrivee%100
+            );
             printf("------------------\n");
         }
     }
