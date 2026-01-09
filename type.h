@@ -19,11 +19,19 @@ typedef struct {
     float prixBillet;
 } Passager;
 
+typedef struct 
+{
+    int j;
+    int m;
+    int a;
+}date;
+
+
 typedef struct {
     int numBus;
     char villeDepart[MAX_CARAC];
     char villeArrivee[MAX_CARAC];
-    char dateDepart[MAX_CARAC];
+    date d;
     char horaireDepart[MAX_CARAC];
     char horaireArrivee[MAX_CARAC];
     Passager p[MAX_PASSAGERS];

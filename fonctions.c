@@ -5,8 +5,6 @@
 #include "type.h" 
 
 
-//== faudrais commenter le tout pour mieux retenir chaque fonction faites ==//
-
 Bus b[MAX_BUS];
 Passager p[MAX_PASSAGERS];
 
@@ -17,7 +15,7 @@ void implementation_struct(FILE *f) {
 
     while (fgets(line, sizeof(line), f) != NULL && bus_index < MAX_BUS) {
         int i = 0, j = 0, k = 0;
-        char temp[50];
+        char temp[100];
 
         // ---- numBus ----
         k = 0;
@@ -45,10 +43,20 @@ void implementation_struct(FILE *f) {
 
         // ---- dateDepart ----
         k = 0;
-        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+        while (line[i] != '/')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        strcpy(b[bus_index].dateDepart, temp);
+        b[bus_index].d.j = atoi(temp);
+        k = 0;
+        while (line[i] != '/')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        b[bus_index].d.m = atoi(temp);
+        k = 0;
+        while (line[i] != '/')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+        b[bus_index].d.a = atoi(temp);
         if (line[i] == ',') i++;
 
         // ---- horaireDepart ----
@@ -97,16 +105,12 @@ void implementation_struct(FILE *f) {
     }
 }
 
-
-
-
-
 //== Bilal ==//
 void afficher_tous_trajets(FILE *f) {
     for (int i = 0; i < MAX_BUS; i++){
         printf("------------------\n");
         printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
-        printf(" Date : %s\n", b[i].dateDepart);
+        printf(" Date : %d/%d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
         printf(" Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
         printf("------------------\n");
     }
@@ -123,7 +127,7 @@ void afficher_selon_num(FILE *f) {
             printf("------------------\n");
             printf("Bus %d\nDepart: %s\nArrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
-            printf("Date : %s\n", b[i].dateDepart);
+            printf(" Date : %d/%d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
             printf("Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
             printf("--------------\n");
             printf("Passagers:\n");
@@ -149,7 +153,11 @@ void trier_par_ville_et_date(FILE *f) {
     for (int i = 0; i < MAX_BUS - 1; i++) {
         for (int j = 0; j < MAX_BUS - i - 1; j++) {
             cmp = strcmp(b[j].villeDepart, b[j + 1].villeDepart);
-            if (cmp > 0 || (cmp == 0 && strcmp(b[j].dateDepart, b[j + 1].dateDepart) > 0)) {
+            if (cmp > 0 
+                || b[j].d.a > b[j+1].d.a // annee bus j sup a annee bus j+1
+                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m // annee pareil mais mois diff
+                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m && b[j].d.j > b[j+1].d.j // annee & mois apreil mais j diff
+            ) {
                 Bus temp = b[j];
                 b[j] = b[j + 1];
                 b[j + 1] = temp;
@@ -230,11 +238,13 @@ void maj_nv_fichier(void){
     }
 
     for (int i = 0; i < MAX_BUS; i++){
-        fprintf(s, "%d,%s,%s,%s,%s,%s",
+        fprintf(s, "%d,%s,%s,%d/%d/%d,%s,%s",
                 b[i].numBus,
                 b[i].villeDepart,
                 b[i].villeArrivee,
-                b[i].dateDepart,
+                b[i].d.j,
+                b[i].d.m,
+                b[i].d.a,
                 b[i].horaireDepart,
                 b[i].horaireArrivee);
 
@@ -299,6 +309,7 @@ void modif_nom_prix(FILE *f){
 }
 
 // fonction de la 7 mais pas possible avec les strcut que j'ai mis en place pour l'instant car on peut pas checker 2 date diff
+// a faire si le temps le permet 
 //== Bilal ==//
 void filtre_ville_date_lendemain(FILE *f){
     char villedep[MAX_CARAC];
@@ -309,8 +320,9 @@ void filtre_ville_date_lendemain(FILE *f){
     scanf("%s",date);
     /*
     for(int i=0; i<MAX_BUS;i++){
-        if(villedep == b[i].villeDepart && ) // ajout de condition arriver le lendemain mais a cause de la structure de mes date il est impossible ( du moin je pense donc il vas falloir faire comme les passager mais il faut reaminer la date pour la mettre dans un struct apprt et donc ajuster affichage et utilisation des autre code 
+        if(villedep == b[i].villeDepart && ) // ajout de condition arriver le lendemain mais a cause de la structure de mes date il est impossible 
     }
+        
     */
 }
 
@@ -330,14 +342,14 @@ void combiner_villedep_villearriv_datedep(FILE *f){
         if(strcmp(villedep,b[i].villeDepart)== 0 && strcmp(villearriv,b[i].villeArrivee)==0 && strcmp(date,b[i].dateDepart)==0){
             printf("------------------\n");
             printf(" Bus %d \n Depart: %s \n Arivee: %s\n", b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
-            printf(" Date : %s\n", b[i].dateDepart);
+            printf(" Date : %d/%d/%d\n", b[i].d.j,b[i].d.m,b[i].d.a);
             printf(" Horaire : %s - %s\n", b[i].horaireDepart, b[i].horaireArrivee);
             printf("------------------\n");
         }
     }
 }
 
-
+//== Bilal ==//
 void ca_triee(FILE *f){
     CA trajet[MAX_BUS];
     int somme_par_trajet;
