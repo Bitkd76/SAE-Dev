@@ -88,6 +88,7 @@ int main() {
                 maj_nv_fichier();
                 break;
             case 7 :
+                filtre_ville_date_lendemain(f);
                 break;
             case 8 :
                 combiner_villedep_villearriv_datedep(f);
