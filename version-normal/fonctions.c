@@ -213,7 +213,7 @@ void supprimer_passager() {
     int num, id;
     printf("Numero du bus : ");
     scanf("%d", &num);
-    printf("ID du passager à supprimer : ");
+    printf("ID du passager a supprimer : ");
     scanf("%d", &id);
 
     for (int i = 0; i < MAX_BUS; i++) {
@@ -242,7 +242,7 @@ void supprimer_passager() {
 void maj_nv_fichier(void){
     FILE *s = fopen("sauvegarde_trajet_bus.csv", "w");
     if (s == NULL){
-        printf("Erreur lors de l'ouverture du fichier.\n");
+        printf("Erreur lors de l ouverture du fichier.\n");
         return;
     }
 
@@ -276,7 +276,7 @@ void modif_nom_prix(){
     char nom[MAX_CARAC];
     printf("Veuillez saisir le numero du bus: ");
     scanf("%d",&num);
-    printf("Veuillez saisir l'id du client: ");
+    printf("Veuillez saisir l id du client: ");
     scanf("%d",&id);
     printf("1 - Modification/Ajout du nom\n");
     printf("2 - Modification du prix du billet\n");
@@ -370,11 +370,12 @@ void combiner_villedep_villearriv_datedep(){
     }
 }
 
+
 //== Bilal ==//
 void ca_triee(){
     CA trajet[MAX_BUS];
     int somme_par_trajet;
-    double val; // en double pour qu'elle compte aussi les quart-d'heur ect. Pour evité de trop arrondir.
+    double val; // en double pour qu'elle compte aussi les quart-d'heur ect. Pour evit  e de trop arrondir.
     for (int i=0; i<MAX_BUS; i++){
         somme_par_trajet = 0;
         for(int j=0;j<MAX_PASSAGERS;j++){
@@ -405,3 +406,14 @@ void ca_triee(){
     }
 }
 
+/* FONCTION A FAIRE MAIS MANQUE DE TEMPS !!
+void fonction10(){
+    CA trajet[MAX_BUS];
+    for(int i=0; i<MAX_BUS;i++){
+        if(trajet[i].chiffre_affaire < 0 ){
+
+        }
+    }
+}
+
+*/

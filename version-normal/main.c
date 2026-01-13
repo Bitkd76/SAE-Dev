@@ -50,7 +50,7 @@ int main() {
                 trier_par_ville_et_date();
                 afficher_tous_trajets();
                 break;
-            case 4 :
+            case 4 : // aurait du remplacer tout sont contenant pas une fonction qui fait appel aux autres fonction, si temps à faire
                 
                 printf("1 - Ajout de client \n");
                 printf("2 - Supperssion de client de client \n");
