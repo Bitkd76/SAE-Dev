@@ -47,11 +47,11 @@ int main() {
                     break;
 
                 case 2 :
-                    afficher_selon_num(f);
+                    afficher_selon_num();
                     break;
 
                 case 3 :
-                    trier_par_ville_et_date(f);
+                    trier_par_ville_et_date();
                     afficher_tous_trajets();
                     break;
 
@@ -62,13 +62,13 @@ int main() {
                     scanf("%d",&casechoix); C++;
 
                     if(C++, casechoix==1){
-                        ajouter_passager(f);
+                        ajouter_passager();
                         while (C++, casechoix==1){
                             printf("1 - Ajouter un autre passager\n");
                             printf("20 - retour\n");
                             printf("Votre Choix:");
                             scanf("%d",&casechoix); C++;
-                            ajouter_passager(f);
+                            ajouter_passager();
                         }
                     }
                     else if (C++, casechoix==2){
@@ -77,7 +77,7 @@ int main() {
                             printf("20 - retour\n");
                             printf("Votre Choix:");
                             scanf("%d",&casechoix); C++;
-                            supprimer_passager(f);
+                            supprimer_passager();
                         }
                     }
                     else{
@@ -86,7 +86,7 @@ int main() {
                     break;
 
                 case 5 :
-                    modif_nom_prix(f);
+                    modif_nom_prix();
                     break; 
 
                 case 6 :
@@ -94,15 +94,15 @@ int main() {
                     break;
 
                 case 7 :
-                    filtre_ville_date_lendemain(f);
+                    filtre_ville_date_lendemain();
                     break;
 
                 case 8 :
-                    combiner_villedep_villearriv_datedep(f);
+                    combiner_villedep_villearriv_datedep();
                     break;
 
                 case 9 :
-                    ca_triee(f);
+                    ca_triee();
                     break;
 
                 case 10 :
