@@ -6,14 +6,12 @@
 #define MAX_PASSAGERS 55
 #define MAX_BUS 5000
 
-// ===== Compteur global d'opérations =====
-extern long long C;
-
 typedef struct 
 {
     int idbus;
     double chiffre_affaire;
-} CA;
+}CA;
+
 
 typedef struct {
     int id;
@@ -26,7 +24,8 @@ typedef struct
     int j;
     int m;
     int a;
-} date;
+}date;
+
 
 typedef struct {
     int numBus;
@@ -38,4 +37,5 @@ typedef struct {
     Passager p[MAX_PASSAGERS];
 } Bus;
 
-#endif
+
+#endif 

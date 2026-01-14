@@ -375,7 +375,7 @@ void combiner_villedep_villearriv_datedep(){
 void ca_triee(){
     CA trajet[MAX_BUS];
     int somme_par_trajet;
-    double val; // en double pour qu'elle compte aussi les quart-d'heur ect. Pour evit  e de trop arrondir.
+    double val; // en double pour qu'elle compte aussi les quart-d'heur ect. Pour evite de trop arrondir.
     for (int i=0; i<MAX_BUS; i++){
         somme_par_trajet = 0;
         for(int j=0;j<MAX_PASSAGERS;j++){
