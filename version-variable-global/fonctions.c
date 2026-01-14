@@ -16,7 +16,7 @@ void implementation_struct(FILE *f) {
     int bus_index = 0;
 
     while (fgets(line, sizeof(line), f) != NULL && bus_index < MAX_BUS) {
-        int i = 0, j = 0, k = 0;
+        int i = 0, k = 0;
         char temp[100];
 
         // ---- numBus ----
@@ -24,7 +24,12 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        b[bus_index].numBus = atoi(temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].numBus = -1;
+        else
+            b[bus_index].numBus = atoi(temp);
+
         if (line[i] == ',') i++;
 
         // ---- villeDepart ----
@@ -32,7 +37,12 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        strcpy(b[bus_index].villeDepart, temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].villeDepart[0] = '\0';
+        else
+            strcpy(b[bus_index].villeDepart, temp);
+
         if (line[i] == ',') i++;
 
         // ---- villeArrivee ----
@@ -40,32 +50,51 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        strcpy(b[bus_index].villeArrivee, temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].villeArrivee[0] = '\0';
+        else
+            strcpy(b[bus_index].villeArrivee, temp);
+
         if (line[i] == ',') i++;
 
-        // ---- dateDepart ----
-        // jour
+        // ---- dateDepart : jour ----
         k = 0;
-        while (line[i] != '/')
+        while (line[i] != '/' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        b[bus_index].d.j = atoi(temp);
-        if(line[i]=='/')i++;
-        
-        // mois
-        k = 0;
-        while (line[i] != '/')
-            temp[k++] = line[i++];
-        temp[k] = '\0';
-        b[bus_index].d.m = atoi(temp);
-        if(line[i]=='/')i++;
 
-        // annee
+        if (strlen(temp) == 0)
+            b[bus_index].d.j = -1;
+        else
+            b[bus_index].d.j = atoi(temp);
+
+        if (line[i] == '/') i++;
+
+        // ---- dateDepart : mois ----
         k = 0;
-        while (line[i] != ',')
+        while (line[i] != '/' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        b[bus_index].d.a = atoi(temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].d.m = -1;
+        else
+            b[bus_index].d.m = atoi(temp);
+
+        if (line[i] == '/') i++;
+
+        // ---- dateDepart : annee ----
+        k = 0;
+        while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+            temp[k++] = line[i++];
+        temp[k] = '\0';
+
+        if (strlen(temp) == 0)
+            b[bus_index].d.a = -1;
+        else
+            b[bus_index].d.a = atoi(temp);
+
         if (line[i] == ',') i++;
 
         // ---- horaireDepart ----
@@ -73,7 +102,12 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        b[bus_index].horaireDepart = atoi(temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].horaireDepart = -1;
+        else
+            b[bus_index].horaireDepart = atoi(temp);
+
         if (line[i] == ',') i++;
 
         // ---- horaireArrivee ----
@@ -81,38 +115,63 @@ void implementation_struct(FILE *f) {
         while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
             temp[k++] = line[i++];
         temp[k] = '\0';
-        b[bus_index].horaireArrivee = atoi(temp);
+
+        if (strlen(temp) == 0)
+            b[bus_index].horaireArrivee = -1;
+        else
+            b[bus_index].horaireArrivee = atoi(temp);
+
         if (line[i] == ',') i++;
 
         // ---- passagers ----
         int pass_index = 0;
         while (line[i] != '\0' && line[i] != '\n' && pass_index < MAX_PASSAGERS) {
-            // id
+
+            // ---- id ----
             k = 0;
-            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n')
+                temp[k++] = line[i++];
             temp[k] = '\0';
-            b[bus_index].p[pass_index].id = atoi(temp);
+
+            if (strlen(temp) == 0)
+                b[bus_index].p[pass_index].id = -1;
+            else
+                b[bus_index].p[pass_index].id = atoi(temp);
+
             if (line[i] == ':') i++;
 
-            // nom
+            // ---- nom ----
             k = 0;
-            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            while (line[i] != ':' && line[i] != '\0' && line[i] != '\n')
+                temp[k++] = line[i++];
             temp[k] = '\0';
-            strcpy(b[bus_index].p[pass_index].nom, temp);
+
+            if (strlen(temp) == 0)
+                b[bus_index].p[pass_index].nom[0] = '\0';
+            else
+                strcpy(b[bus_index].p[pass_index].nom, temp);
+
             if (line[i] == ':') i++;
 
-            // prix
+            // ---- prix ----
             k = 0;
-            while (line[i] != ',' && line[i] != '\0' && line[i] != '\n') temp[k++] = line[i++];
+            while (line[i] != ',' && line[i] != '\0' && line[i] != '\n')
+                temp[k++] = line[i++];
             temp[k] = '\0';
-            b[bus_index].p[pass_index].prixBillet = atof(temp);
+
+            if (strlen(temp) == 0)
+                b[bus_index].p[pass_index].prixBillet = -1.0;
+            else
+                b[bus_index].p[pass_index].prixBillet = atof(temp);
 
             pass_index++;
             if (line[i] == ',') i++;
         }
+
         bus_index++;
     }
 }
+
 
 //== Bilal ==//
 void afficher_tous_trajets() {
@@ -327,14 +386,17 @@ void modif_nom_prix(){
 //== Bilal ==//
 // Fonction avec variable global !-----------------------------------------------------------------------------------------------------------
 void filtre_ville_date_lendemain(){
-    char villedep[MAX_CARAC],date[MAX_CARAC]; C += 2;
-    int horaire; C++;
+    char villedep[MAX_CARAC];
+    long C = 0;   // compteur d'opérations
 
-    printf("Veuillez saisr la ville de depart: ");
-    scanf("%s",villedep);
+    printf("Veuillez saisir la ville de depart: ");
+    scanf("%s", villedep);
 
-    for(int i=0; C++, i<MAX_BUS; i++){
-        if(C++, strcmp(villedep,b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart){
+    for(int i = 0; i < MAX_BUS; i++){
+        C++;
+        if (strcmp(villedep, b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart && b[i].horaireDepart >= 0 && b[i].horaireArrivee >= 0)
+        {
+            C++;
             printf("------------------\n");
             printf(" Bus %d\n Depart: %s\n Arrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
@@ -346,8 +408,11 @@ void filtre_ville_date_lendemain(){
             printf("--------------\n");
         }
     }
-    printf("\n\nNombre d'operation: %ld",C);
+
+    printf("\nNombre d'operations: %ld\n", C);
 }
+
+
 
 
 //== Bilal ==//
