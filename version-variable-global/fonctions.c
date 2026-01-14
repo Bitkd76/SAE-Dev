@@ -8,6 +8,8 @@
 Bus b[MAX_BUS];
 Passager p[MAX_PASSAGERS];
 
+long long C = 0;
+
 //== Bilal ==// 
 void implementation_struct(FILE *f) {
     char line[6000];
@@ -127,13 +129,15 @@ void afficher_tous_trajets() {
 }
 
 //== Bilal ==// 
+// aurait du faire une recherche dichotomique mais manque de temps ! 
+// Fonction avec variable global !-----------------------------------------------------------------------------------------------------------
 void afficher_selon_num() {
-    int num;
+    int num; C++;
     printf("Saisir numero de bus souhaite: ");
     scanf("%d", &num);
 
-    for (int i = 0; i < MAX_BUS; i++) {
-        if (b[i].numBus == num) {
+    for (int i = 0; C++, i < MAX_BUS; i++) {
+        if (C++, b[i].numBus == num) {
             printf("------------------\n");
             printf("Bus %d\nDepart: %s\nArrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
@@ -144,8 +148,8 @@ void afficher_selon_num() {
             );
             printf("--------------\n");
             printf("Passagers:\n");
-            for (int j = 0; j < MAX_PASSAGERS; j++) {
-                if (b[i].p[j].id == 0) break; 
+            for (int j = 0; C++, j < MAX_PASSAGERS; j++) {
+                if (C++, b[i].p[j].id == 0) break; 
                 printf("%d %s %.2f eu\n",
                        b[i].p[j].id,
                        b[i].p[j].nom,
@@ -155,28 +159,30 @@ void afficher_selon_num() {
             return; 
         }
     }
-
     printf("Pas de bus trouver avec ce num \n");
+    printf("\nNombre d'operation: %ld",C);
 }
 
 
 //== Bilal ==//
+// Fonction avec variable global !-----------------------------------------------------------------------------------------------------------
 void trier_par_ville_et_date() {
-    int cmp;
-    for (int i = 0; i < MAX_BUS - 1; i++) {
-        for (int j = 0; j < MAX_BUS - i - 1; j++) {
-            cmp = strcmp(b[j].villeDepart, b[j + 1].villeDepart);
-            if (cmp > 0 
-                || b[j].d.a > b[j+1].d.a // annee bus j sup a annee bus j+1
-                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m // annee pareil mais mois diff
-                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m && b[j].d.j > b[j+1].d.j // annee & mois apreil mais j diff
-            ) {
-                Bus temp = b[j];
-                b[j] = b[j + 1];
-                b[j + 1] = temp;
+    int cmp; C++;
+    for (int i = 0; C++, i < MAX_BUS - 1; i++) {
+        for (int j = 0; C++, j < MAX_BUS - i - 1; j++) {
+            cmp = strcmp(b[j].villeDepart, b[j + 1].villeDepart); C++;
+            if (C++, (cmp > 0 
+                || b[j].d.a > b[j+1].d.a
+                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m
+                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m && b[j].d.j > b[j+1].d.j)) 
+                {
+                Bus temp = b[j]; C++;
+                b[j] = b[j + 1]; C++;
+                b[j + 1] = temp; C++;
             }
         }
     }
+    printf("\nNombre d'operation: %ld",C);
 }
 
 
@@ -319,14 +325,16 @@ void modif_nom_prix(){
 
 
 //== Bilal ==//
+// Fonction avec variable global !-----------------------------------------------------------------------------------------------------------
 void filtre_ville_date_lendemain(){
-    char villedep[MAX_CARAC],date[MAX_CARAC];
-    int horaire;
+    char villedep[MAX_CARAC],date[MAX_CARAC]; C += 2;
+    int horaire; C++;
+
     printf("Veuillez saisr la ville de depart: ");
     scanf("%s",villedep);
 
-    for(int i=0; i<MAX_BUS;i++){
-        if(strcmp(villedep,b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart){
+    for(int i=0; C++, i<MAX_BUS; i++){
+        if(C++, strcmp(villedep,b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart){
             printf("------------------\n");
             printf(" Bus %d\n Depart: %s\n Arrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
@@ -338,6 +346,7 @@ void filtre_ville_date_lendemain(){
             printf("--------------\n");
         }
     }
+    printf("\n\nNombre d'operation: %ld",C);
 }
 
 
