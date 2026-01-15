@@ -34,36 +34,6 @@ void afficher_selon_num(void);
  */
 void trier_par_ville_et_date(void);
 
-/**
- * Supprime un passager d’un bus selon l’ID.
- * Entrées: numBus et id du passager saisis par l’utilisateur
- * Pré-cond: b[i] initialisés
- * Post-cond: Passager supprimé du bus si trouvé, sinon message d’erreur
- */
-void supprimer_passager(void);
-
-/**
- * Ajoute un passager à un bus selon son numéro.
- * Entrées: numBus, id, nom et prix saisis par l’utilisateur
- * Pré-cond: b[i] initialisés, bus non plein
- * Post-cond: Nouveau passager ajouté au bus
- */
-void ajouter_passager(void);
-
-/**
- * Modifie le nom ou le prix d’un passager d’un bus.
- * Entrées: numBus et id du passager, choix (1=nom, 2=prix)
- * Pré-cond: b[i] initialisés, passager existant
- * Post-cond: Nom ou prix modifié selon le choix
- */
-void modif_nom_prix(void);
-
-/**
- * Met à jour le fichier de sauvegarde des trajets et passagers.
- * Pré-cond: b[i] initialisés
- * Post-cond: Écriture de tous les bus et passagers dans "sauvegarde_trajet_bus.csv"
- */
-void maj_nv_fichier(void);
 
 /**
  * Filtre et affiche les trajets partant d’une ville et arrivant le lendemain.
@@ -73,19 +43,5 @@ void maj_nv_fichier(void);
  */
 void filtre_ville_date_lendemain(void);
 
-/**
- * Affiche les trajets correspondant à une ville de départ, une ville d’arrivée et une date.
- * Entrées: villeDep, villeArriv, jour, mois, annee saisis par l’utilisateur
- * Pré-cond: b[i] initialisés
- * Post-cond: Affichage des bus correspondant à ces critères
- */
-void combiner_villedep_villearriv_datedep(void);
-
-/**
- * Calcule et trie les trajets selon le chiffre d’affaires généré par les passagers.
- * Pré-cond: b[i] et passagers initialisés
- * Post-cond: Affichage des bus triés par chiffre d’affaire croissant
- */
-void ca_triee(void);
 
 #endif

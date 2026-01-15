@@ -4,7 +4,7 @@
 #define FICHIER "trajets_bus.csv" 
 #define MAX_CARAC 50
 #define MAX_PASSAGERS 55
-#define MAX_BUS 5000
+#define MAX_BUS 5000 // si tu veut tester avec d'autre ficheir oublie aps de changer max bus avec le nombre de trajet /!\
 
 typedef struct 
 {

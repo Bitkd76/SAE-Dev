@@ -187,10 +187,11 @@ void afficher_tous_trajets() {
 
 //== Bilal ==// 
 void afficher_selon_num() {
+    
     int num;
     printf("Saisir numero de bus souhaite: ");
     scanf("%d", &num);
-
+    
     for (int i = 0; i < MAX_BUS; i++) {
         if (b[i].numBus == num) {
             printf("------------------\n");
@@ -209,12 +210,11 @@ void afficher_selon_num() {
                        b[i].p[j].id,
                        b[i].p[j].nom,
                        b[i].p[j].prixBillet);
-            }
+                    }
             printf("------------------\n");
             return; 
         }
     }
-
     printf("Pas de bus trouver avec ce num \n");
 }
 
@@ -228,7 +228,7 @@ void trier_par_ville_et_date() {
             if (cmp > 0 
                 || b[j].d.a > b[j+1].d.a // annee bus j sup a annee bus j+1
                 || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m // annee pareil mais mois diff
-                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m && b[j].d.j > b[j+1].d.j // annee & mois apreil mais j diff
+                || b[j].d.a == b[j+1].d.a && b[j].d.m > b[j+1].d.m && b[j].d.j > b[j+1].d.j // annee & mois pareil mais j diff
             ) {
                 Bus temp = b[j];
                 b[j] = b[j + 1];
@@ -298,7 +298,7 @@ void supprimer_passager() {
 }
 
 //== Bilal ==//
-void maj_nv_fichier(void){
+void maj_nv_fichier(){
     FILE *s = fopen("sauvegarde_trajet_bus.csv", "w");
     if (s == NULL){
         printf("Erreur lors de l ouverture du fichier.\n");
@@ -379,13 +379,19 @@ void modif_nom_prix(){
 
 //== Bilal ==//
 void filtre_ville_date_lendemain(){
-    char villedep[MAX_CARAC],date[MAX_CARAC];
-    int horaire;
-    printf("Veuillez saisr la ville de depart: ");
-    scanf("%s",villedep);
+    char villedep[MAX_CARAC];
+    int datedep,j,m,a;
+    printf("Veuillez saisir la ville de depart: ");
+    scanf("%s", villedep);
+    printf("Veuillez saisir la date de depart sous format JJ MM AAAA : ");
+    scanf("%d %d %d",&j,&m,&a);
 
-    for(int i=0; i<MAX_BUS;i++){
-        if(strcmp(villedep,b[i].villeDepart) == 0 && b[i].horaireArrivee < b[i].horaireDepart){
+    for(int i = 0; i < MAX_BUS; i++){
+        if (strcmp(villedep, b[i].villeDepart) == 0 
+            && j == b[i].d.j && m == b[i].d.m && a == b[i].d.a
+            && b[i].horaireArrivee < b[i].horaireDepart 
+            && b[i].horaireDepart >= 0 && b[i].horaireArrivee >= 0)
+        {
             printf("------------------\n");
             printf(" Bus %d\n Depart: %s\n Arrivee: %s\n",
                    b[i].numBus, b[i].villeDepart, b[i].villeArrivee);
@@ -394,10 +400,8 @@ void filtre_ville_date_lendemain(){
                 b[i].horaireDepart/100,b[i].horaireDepart%100, 
                 b[i].horaireArrivee/100,b[i].horaireArrivee%100
             );
-            printf("--------------\n");
-        }
-    }
-}
+            printf("--------------\n");}}}
+
 
 
 //== Bilal ==//

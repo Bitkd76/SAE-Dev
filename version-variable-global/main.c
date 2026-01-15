@@ -22,17 +22,10 @@ int main() {
         implementation_struct(f);
         printf("Implementation Terminer \n");
         while (choix != 20) {
-        printf("================ MENU BUS ================\n");
-        printf("1  - Afficher tous les trajets prevus\n");
-        printf("2  - Afficher informations trajet (par numero de bus)\n");
-        printf("3  - Afficher tous les trajets tries (Ville Depart / Date Depart)\n");
-        printf("4  - Gestion des passagers (Ajout/Suppression) \n");
-        printf("5  - Modifier Nom/Prix billet d un passager \n");
-        printf("6  - Sauvegarde des donnees dans un fichier \n");
-        printf("7  - Filtrer : Trajets partant d une ville, a une date, arrivant le lendemain \n");
-        printf("8  - Filtrer : Trajets combinant Ville Depart, Ville Arrivee et Date Depart \n");
-        printf("9  - Afficher trajets tries par Chiffre d Affaires (CA) \n");
-        printf("10 - Suppression des bus a CA negatif et redistribution \n");
+        printf("================ MENU BUS avec le compteur de complexite ================\n");
+        printf("1 - Recherche: Afficher informations trajet (par numero de bus) \n");
+        printf("2 - Trie: Afficher tous les trajets tries (Ville Depart / Date Depart)\n");
+        printf("3 - Filtre : Trajets partant d une ville, a une date, arrivant le lendemain \n");
         printf("\n20 - Quitter le programme\n");
         printf("===========================================\n");
         
@@ -41,63 +34,14 @@ int main() {
 
         switch (choix) {
             case 1 :
-                afficher_tous_trajets();
-                break;
-            case 2 :
                 afficher_selon_num();
                 break;
-            case 3 :
+            case 2 :
                 trier_par_ville_et_date();
                 afficher_tous_trajets();
                 break;
-            case 4 : // aurait du remplacer tout sont contenant pas une fonction qui fait appel aux autres fonction, si temps à faire
-                
-                printf("1 - Ajout de client \n");
-                printf("2 - Supperssion de client de client \n");
-                printf("Votre choix: ");
-                scanf("%d",&casechoix);
-                if(casechoix==1){
-                    ajouter_passager();
-                    while (casechoix==1){
-                        printf("1 - Ajouter un autre passager\n");
-                        printf("20 - retour\n");
-                        printf("Votre Choix:");
-                        scanf("%d",&casechoix);
-                        ajouter_passager();
-                    }
-                }
-                else if (casechoix==2){
-                    while (casechoix==2)
-                    {
-                        printf("1 - Supprimer un autre passager\n");
-                        printf("20 - retour\n");
-                        printf("Votre Choix:");
-                        scanf("%d",&casechoix);
-                        supprimer_passager();
-                    }
-                    
-                }
-                else{
-                    printf("Choix invalide!\n");
-                }
-                break;
-            case 5 :
-                modif_nom_prix();
-                break; 
-            case 6 :
-                maj_nv_fichier();
-                break;
-            case 7 :
+            case 3 :
                 filtre_ville_date_lendemain();
-                break;
-            case 8 :
-                combiner_villedep_villearriv_datedep();
-                break;
-            case 9 :
-                ca_triee();
-                break;
-            case 10 :
-                printf("Fonction non indentee");
                 break;
             case 20 :
                 printf("Fermeture. \n");
